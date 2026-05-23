@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Aayu Babu 🎉</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&family=Comic+Neue:wght@700&display=swap');
+        
+        :root {
+            --primary: #ff69b4;
+            --secondary: #a855f7;
+        }
+        
+        .tail-container {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 3.5rem;
+            animation: float 8s infinite ease-in-out;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(25deg); }
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.8rem;
+            animation: heartFloat 12s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+        }
+
+        .photo-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .photo-card:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+    </style>
+</head>
+<body class="tail-container bg-black text-white overflow-x-hidden">
+
+    <!-- ==================== CUSTOMIZATION ==================== -->
+    <script>
+        const CONFIG = {
+            name: "Aayu Babu",           // ← Updated Name
+            age: 2,                      // ← Updated Age
+            birthDate: "2026-05-25",
+            message: "Happy 2nd Birthday, sweet Aayu Babu! May your day be filled with endless giggles, cuddles, toys, and all the love in the world. You are our little sunshine! 🌟",
+            musicUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", 
+            photos: [
+                "https://picsum.photos/id/1015/800/600",
+                "https://picsum.photos/id/1027/800/600",
+                "https://picsum.photos/id/106/800/600",
+                "https://picsum.photos/id/201/800/600"
+            ],
+            yourName: "Vishwajeet"
+        };
+    </script>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        
+        <div id="balloons" class="absolute inset-0 pointer-events-none"></div>
+        <div id="hearts" class="absolute inset-0 pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10 py-20">
+            <div class="inline-flex items-center gap-3 bg-white/30 px-8 py-3 rounded-full mb-8 text-xl font-bold">
+                <span>🎂</span>
+                <span>IT'S YOUR SPECIAL DAY!</span>
+            </div>
+            
+            <h1 class="heading-font text-6xl md:text-8xl font-bold mb-6 leading-tight glow-text text-pink-600">
+                Happy Birthday<br>
+                <span id="name-span" class="text-yellow-400 text-7xl md:text-8xl"></span> 🎉
+            </h1>
+            
+            <p id="typing-text" class="text-2xl md:text-3xl font-light text-pink-800 min-h-[100px] mt-6"></p>
+
+            <div class="mt-12 inline-flex items-center gap-8 bg-white/30 px-10 py-6 rounded-3xl">
+                <div class="text-center">
+                    <div class="text-6xl font-bold text-yellow-400" id="age-display">2</div>
+                    <div class="text-lg font-medium text-pink-800">Years Old</div>
+                </div>
+                <div onclick="triggerSurprise()" 
+                     class="cursor-pointer bg-white text-pink-600 hover:bg-yellow-300 px-8 py-5 rounded-2xl font-bold text-lg flex items-center gap-3 shadow-xl">
+                    SURPRISE ME! 🎊
+                </div>
+            </div>
+        </div>
+
+        <!-- Music Button -->
+        <div class="absolute top-8 right-8 z-50">
+            <button onclick="toggleMusic()" id="music-btn"
+                    class="glass px-6 py-3 rounded-3xl flex items-center gap-3 text-pink-800 font-medium hover:scale-105 transition-all">
+                <span id="music-icon">🎵</span>
+                <span>Play Music</span>
+            </button>
+        </div>
+
+        <audio id="birthday-audio" loop></audio>
+    </section>
+
+    <!-- MESSAGE -->
+    <section class="py-24 bg-gradient-to-b from-pink-100 to-purple-100">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="heading-font text-5xl text-pink-600 mb-10">Dear Aayu Babu,</h2>
+            <div class="glass rounded-3xl p-12 text-xl leading-relaxed text-pink-900" id="custom-message"></div>
+        </div>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="heading-font text-5xl text-center text-pink-600 mb-16">Sweet Memories</h2>
+            
+            <div class="relative max-w-4xl mx-auto mb-16 rounded-3xl overflow-hidden shadow-2xl" id="slideshow-container">
+                <!-- Slideshow populated by JS -->
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="photo-grid"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-pink-600 py-12 text-white text-center">
+        <p class="text-xl">Made with ❤️ by <span id="footer-name" class="font-bold"></span></p>
+        <p class="text-sm mt-3">Happy 2nd Birthday • Aayu Babu • 2026</p>
+    </footer>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+    <script>
+        // Populate Data
+        document.getElementById('name-span').textContent = CONFIG.name;
+        document.getElementById('footer-name').textContent = CONFIG.yourName;
+        document.getElementById('age-display').textContent = CONFIG.age;
+        document.getElementById('custom-message').innerHTML = `<p class="text-2xl">${CONFIG.message}</p>`;
+
+        const audio = document.getElementById('birthday-audio');
+        audio.src = CONFIG.musicUrl;
+
+        let isPlaying = false;
+
+        function toggleMusic() {
+            const btn = document.getElementById('music-btn');
+            if (isPlaying) {
+                audio.pause();
+                btn.innerHTML = `<span>🎵</span><span>Play Music</span>`;
+            } else {
+                audio.play();
+                btn.innerHTML = `<span>⏸️</span><span>Pause Music</span>`;
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Typing Effect
+        function typeEffect() {
+            const text = `Happy 2nd Birthday, Aayu Babu! 🎈`;
+            const element = document.getElementById('typing-text');
+            let i = 0;
+            element.textContent = '';
+            
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else clearInterval(timer);
+            }, 70);
+        }
+
+        // Balloons & Hearts
+        function createBalloons() {
+            const container = document.getElementById('balloons');
+            const emojis = ['🎈', '🦋', '🌟', '🐻'];
+            for (let i = 0; i < 30; i++) {
+                const b = document.createElement('div');
+                b.className = 'balloon';
+                b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+                b.style.left = Math.random() * 100 + 'vw';
+                b.style.animationDuration = (Math.random() * 7 + 9) + 's';
+                b.style.animationDelay = '-' + Math.random() * 20 + 's';
+                container.appendChild(b);
+            }
+        }
+
+        function createHearts() {
+            const container = document.getElementById('hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 8 + 10) + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 20000);
+            }, 350);
+        }
+
+        // Slideshow
+        let currentSlide = 0;
+        let slideInterval;
+
+        function createSlideshow() {
+            const container = document.getElementById('slideshow-container');
+            container.innerHTML = `
+                <div id="slideshow" class="h-[520px] relative"></div>
+                <button onclick="prevSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 bg-white/80 text-4xl w-14 h-14 rounded-full flex items-center justify-center shadow">‹</button>
+                <button onclick="nextSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 bg-white/80 text-4xl w-14 h-14 rounded-full flex items-center justify-center shadow">›</button>
+            `;
+
+            const slideshow = document.getElementById('slideshow');
+            CONFIG.photos.forEach((photo, i) => {
+                const img = document.createElement('img');
+                img.src = photo;
+                img.className = `absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === 0 ? 'opacity-100' : 'opacity-0'}`;
+                slideshow.appendChild(img);
+            });
+            startSlideshow();
+        }
+
+        function startSlideshow() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % CONFIG.photos.length;
+                updateSlides();
+            }, 4000);
+        }
+
+        function updateSlides() {
+            const imgs = document.querySelectorAll('#slideshow img');
+            imgs.forEach((img, i) => img.style.opacity = i === currentSlide ? '1' : '0');
+        }
+
+        function nextSlide() { currentSlide = (currentSlide + 1) % CONFIG.photos.length; updateSlides(); }
+        function prevSlide() { currentSlide = (currentSlide - 1 + CONFIG.photos.length) % CONFIG.photos.length; updateSlides(); }
+
+        // Photo Grid
+        function createPhotoGrid() {
+            const grid = document.getElementById('photo-grid');
+            grid.innerHTML = '';
+            CONFIG.photos.forEach(src => {
+                const div = document.createElement('div');
+                div.className = 'photo-card aspect-square rounded-3xl overflow-hidden shadow-xl';
+                div.innerHTML = `<img src="${src}" class="w-full h-full object-cover">`;
+                grid.appendChild(div);
+            });
+        }
+
+        // Confetti
+        let confettiCanvas, ctx, confettiPieces = [];
+
+        function initConfetti() {
+            confettiCanvas = document.getElementById('confetti-canvas');
+            ctx = confettiCanvas.getContext('2d');
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+
+        function triggerSurprise() {
+            confettiCanvas.classList.remove('hidden');
+            confettiPieces = [];
+            
+            for (let i = 0; i < 300; i++) {
+                confettiPieces.push({
+                    x: Math.random() * confettiCanvas.width,
+                    y: Math.random() * confettiCanvas.height - 500,
+                    size: Math.random() * 14 + 8,
+                    speed: Math.random() * 7 + 5,
+                    color: ['#ff69b4', '#ffd700', '#00ff9f', '#ff00ff'][Math.floor(Math.random()*4)],
+                    rotation: Math.random() * 360,
+                    rotSpeed: Math.random() * 0.3 - 0.15
+                });
+            }
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            
+            confettiPieces.forEach((p, i) => {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*1.6);
+                ctx.restore();
+                
+                p.y += p.speed;
+                p.rotation += p.rotSpeed;
+                p.x += Math.sin(p.rotation) * 2;
+                
+                if (p.y > confettiCanvas.height) confettiPieces.splice(i, 1);
+            });
+            
+            if (confettiPieces.length > 0) requestAnimationFrame(animateConfetti);
+            else confettiCanvas.classList.add('hidden');
+        }
+
+        window.onload = () => {
+            createBalloons();
+            createHearts();
+            typeEffect();
+            createSlideshow();
+            createPhotoGrid();
+            initConfetti();
+            
+            console.log("%c🎉 Aayu Babu's Birthday Page Ready!", "color: #ff69b4; font-size: 16px; font-weight: bold");
+        };
+    </script>
+</body>
+</html>
